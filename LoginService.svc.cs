@@ -12,23 +12,30 @@ namespace LoginServiceApplication
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class LoginService : ILoginService
     {
-        public LoginData LoginUser(string username, string password)
+        public bool LoginUser(string email, string password)
         {
-            LoginData loginData = new LoginData();
             using (DataModel db = new DataModel())
             {
-                User user = db.Users.Where(m => m.Username == username).FirstOrDefault();
+                User user = db.Users.Where(m => m.Email == email).FirstOrDefault();
                 if (user != null && user.Password == password)
                 {
-                    loginData.LoggedIn = true;
-                    loginData.Role = user.Role;
-                }
-                else
-                {
-                    loginData.LoggedIn = false;
+                    return true;
                 }
             }
-            return loginData;
+            return false;
+        }
+
+        public bool LoginHost(string email, string password)
+        {
+            using (DataModel db = new DataModel())
+            {
+                Host host = db.Hosts.Where(m => m.Email == email).FirstOrDefault();
+                if (host != null && host.Password == password)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool LoginAdmin(string username, string password)
@@ -44,17 +51,16 @@ namespace LoginServiceApplication
             return false;
         }
 
-        public bool CreateUser(string username, string password, string role)
+        public bool CreateUser(string email, string password)
         {
             using (DataModel db = new DataModel())
             {
-                User user = db.Users.Where(m => m.Username == username).FirstOrDefault();
+                User user = db.Users.Where(m => m.Email == email).FirstOrDefault();
                 if (user == null)
                 {
                     User newUser = new User();
-                    newUser.Username = username;
+                    newUser.Email = email;
                     newUser.Password = password;
-                    newUser.Role = role;
 
                     db.Users.Add(newUser);
                     db.SaveChanges();

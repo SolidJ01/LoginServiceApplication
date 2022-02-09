@@ -14,6 +14,7 @@ namespace LoginServiceApplication
 
         public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Host> Hosts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -26,15 +27,19 @@ namespace LoginServiceApplication
                 .IsUnicode(false);
 
             modelBuilder.Entity<User>()
-                .Property(e => e.Username)
+                .Property(e => e.Email)
                 .IsUnicode(false);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.Password)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<User>()
-                .Property(e => e.Role)
+            modelBuilder.Entity<Host>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Host>()
+                .Property(e => e.Password)
                 .IsUnicode(false);
         }
     }

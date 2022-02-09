@@ -13,21 +13,15 @@ namespace LoginServiceApplication
     public interface ILoginService
     {
         [OperationContract]
-        LoginData LoginUser(string username, string password);
+        bool LoginUser(string email, string password);
+        [OperationContract]
+        bool LoginHost(string email, string password);
         [OperationContract]
         bool LoginAdmin(string username, string password);
         [OperationContract]
-        bool CreateUser(string username, string password, string role);
+        bool CreateUser(string email, string password);
     }
 
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
-    [DataContract]
-    public class LoginData
-    {
-        [DataMember]
-        public bool LoggedIn { get; set; }
-        [DataMember]
-        public string Role { get; set; }
-    }
 }

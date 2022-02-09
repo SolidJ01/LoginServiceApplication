@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="Admin.cs" />
     <Compile Include="DataModel.cs" />
+    <Compile Include="Host.cs" />
     <Compile Include="LoginService.svc.cs">
       <DependentUpon>LoginService.svc</DependentUpon>
     </Compile>

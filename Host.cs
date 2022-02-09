@@ -1,4 +1,4 @@
-namespace LoginServiceApplication
+﻿namespace LoginServiceApplication
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@ namespace LoginServiceApplication
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class User
+    public partial class Host
     {
         public int Id { get; set; }
 

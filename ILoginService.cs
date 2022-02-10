@@ -19,7 +19,14 @@ namespace LoginServiceApplication
         [OperationContract]
         bool LoginAdmin(string username, string password);
         [OperationContract]
-        bool CreateUser(string email, string password);
+        int CreateUser(string email, string password);
+        [OperationContract]
+        int CreateHost(string email, string password);
+
+        [OperationContract]
+        string GetUserEmail(int id);
+        [OperationContract]
+        string GetHostEmail(int id);
     }
 
 

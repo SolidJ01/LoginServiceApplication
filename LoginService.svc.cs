@@ -51,7 +51,7 @@ namespace LoginServiceApplication
             return false;
         }
 
-        public bool CreateUser(string email, string password)
+        public int CreateUser(string email, string password)
         {
             using (DataModel db = new DataModel())
             {
@@ -65,10 +65,49 @@ namespace LoginServiceApplication
                     db.Users.Add(newUser);
                     db.SaveChanges();
 
-                    return true;
+                    return db.Hosts.Last().Id;
                 }
             }
-            return false;
+            return -1;
+        }
+
+        public int CreateHost(string email, string password)
+        {
+            using (DataModel db = new DataModel())
+            {
+                Host host = db.Hosts.Where(m => m.Email == email).FirstOrDefault();
+                if (host == null)
+                {
+                    Host newHost = new Host();
+                    newHost.Email = email;
+                    newHost.Password = password;
+
+                    db.Hosts.Add(newHost);
+                    db.SaveChanges();
+
+                    return db.Hosts.Last().Id;
+                }
+            }
+            return -1;
+        }
+
+        public string GetUserEmail(int id)
+        {
+            return "";
+        }
+
+        public string GetHostEmail(int id)
+        {
+            string result = "";
+            using (DataModel db = new DataModel())
+            {
+                Host host = db.Hosts.Find(id);
+                if (host != null)
+                {
+                    result = host.Email;
+                }
+            }
+            return result;
         }
     }
 }

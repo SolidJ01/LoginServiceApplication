@@ -25,17 +25,19 @@ namespace LoginServiceApplication
             return false;
         }
 
-        public bool LoginHost(string email, string password)
+        public LoginData LoginHost(string email, string password)
         {
+            LoginData result = new LoginData();
             using (DataModel db = new DataModel())
             {
                 Host host = db.Hosts.Where(m => m.Email == email).FirstOrDefault();
                 if (host != null && host.Password == password)
                 {
-                    return true;
+                    result.Success = true;
+                    result.Id = host.Id;
                 }
             }
-            return false;
+            return result;
         }
 
         public bool LoginAdmin(string username, string password)
